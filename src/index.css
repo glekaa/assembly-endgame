@@ -30,6 +30,7 @@ header > p {
 }
 
 .alert {
+  margin-top: 40px;
   background-color: #10A95B;
   border-radius: 4px;
   color: #F9F4DA;
@@ -58,7 +59,7 @@ header > p {
   justify-content: center;
   flex-wrap: wrap;
   gap: 5px;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .chips > div {
@@ -66,4 +67,25 @@ header > p {
   font-weight: 700;
   padding: 5px;
   border-radius: 3px;
+}
+
+.word-input {
+  margin-top: 50px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.word-input > span {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #F9F4DA;
+  background-color: #323232;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  height: 40px;
+  width: 40px;
+  border-bottom: #F9F4DA 1px solid;
 }

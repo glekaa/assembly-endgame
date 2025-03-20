@@ -1,7 +1,7 @@
 import './App.css'
 import {Language} from "./types.ts";
 import {languages} from "./languages.ts";
-import {JSX} from "react";
+import {JSX, useState} from "react";
 
 function App() {
     /**
@@ -16,6 +16,11 @@ function App() {
      * 3. Style to look like the design. You can get the underline
      *    effect on the box using `border-bottom`.
      */
+    const [currentWord, setCurrentWord] = useState("react")
+    const letterElements: JSX.Element[] = currentWord.split("").map((letter: string, index: number) =>
+        <span key={index}>{letter.toUpperCase()}</span>
+    )
+
     const languageElements: JSX.Element[] = languages.map((language: Language) =>
         <div style={{backgroundColor: language.backgroundColor, color: language.color}} key={language.name}>
             {language.name}
@@ -34,6 +39,9 @@ function App() {
             </section>
             <section className="chips">
                 {languageElements}
+            </section>
+            <section className="word-input">
+                {letterElements}
             </section>
         </main>
     )
