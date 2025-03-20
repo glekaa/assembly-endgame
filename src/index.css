@@ -28,3 +28,26 @@ header > p {
   max-width: 350px;
   color: #8E8E8E;
 }
+
+.alert {
+  background-color: #10A95B;
+  border-radius: 4px;
+  color: #F9F4DA;
+  width: 352px;
+  height: 59px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert > h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.alert > p {
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0;
+}
