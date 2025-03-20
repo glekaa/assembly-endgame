@@ -1,14 +1,27 @@
 import './App.css'
+import {Language} from "./types.ts";
+import {languages} from "./languages.ts";
+import {JSX} from "react";
 
 function App() {
     /**
      * Goal: Build out the main parts of our app
      *
-     * Challenge: Build a status section below the header.
-     * For now, you can just hard-code in the styles for
-     * a winning game, and we'll make it more dynamic
-     * later.
+     * Challenge:
+     * 1. Save a "currentWord" in state. Initialize as "react".
+     * 2. Map over the letters of the word (you'll need to turn
+     *    the string into an array of letters first) and display
+     *    each one as a <span>. Capitalize the letters when
+     *    displaying them.
+     * 3. Style to look like the design. You can get the underline
+     *    effect on the box using `border-bottom`.
      */
+    const languageElements: JSX.Element[] = languages.map((language: Language) =>
+        <div style={{backgroundColor: language.backgroundColor, color: language.color}} key={language.name}>
+            {language.name}
+        </div>
+    )
+
     return (
         <main>
             <header>
@@ -18,6 +31,9 @@ function App() {
             <section className="alert">
                 <h2>You win!</h2>
                 <p>Well done! 🎉</p>
+            </section>
+            <section className="chips">
+                {languageElements}
             </section>
         </main>
     )
