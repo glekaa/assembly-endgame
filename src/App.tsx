@@ -8,15 +8,13 @@ function App() {
      * Goal: Build out the main parts of our app
      *
      * Challenge:
-     * 1. Save a "currentWord" in state. Initialize as "react".
-     * 2. Map over the letters of the word (you'll need to turn
-     *    the string into an array of letters first) and display
-     *    each one as a <span>. Capitalize the letters when
-     *    displaying them.
-     * 3. Style to look like the design. You can get the underline
-     *    effect on the box using `border-bottom`.
+     * Display the keyboard ⌨️. Use <button>s for each letter
+     * since it'll need to be clickable and tab-accessible.
      */
     const [currentWord, setCurrentWord] = useState("react")
+
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
+
     const letterElements: JSX.Element[] = currentWord.split("").map((letter: string, index: number) =>
         <span key={index}>{letter.toUpperCase()}</span>
     )
@@ -25,6 +23,10 @@ function App() {
         <div style={{backgroundColor: language.backgroundColor, color: language.color}} key={language.name}>
             {language.name}
         </div>
+    )
+
+    const keyboardElements: JSX.Element[] = alphabet.split("").map((letter: string) =>
+        <button>{letter.toUpperCase()}</button>
     )
 
     return (
@@ -42,6 +44,9 @@ function App() {
             </section>
             <section className="word-input">
                 {letterElements}
+            </section>
+            <section className="keyboard">
+                {keyboardElements}
             </section>
         </main>
     )
