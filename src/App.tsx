@@ -2,18 +2,22 @@ import './App.css'
 import {Language} from "./types.ts";
 import {languages} from "./languages.ts";
 import {JSX, useState} from "react";
+import {clsx} from "clsx";
 
 function App() {
-    /**
-     * Goal: Build out the main parts of our app
-     *
-     * Challenge:
-     * Display the keyboard ⌨️. Use <button>s for each letter
-     * since it'll need to be clickable and tab-accessible.
-     */
+
     const [currentWord, setCurrentWord] = useState("react")
+    const [guessedLetters, setGuessedLetters] = useState<string[]>([])
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+    function addGuessedLetter(letter: string) {
+        setGuessedLetters(prevLetters =>
+            guessedLetters.includes(letter) ?
+                prevLetters :
+                [...prevLetters, letter]
+        )
+    }
 
     const letterElements: JSX.Element[] = currentWord.split("").map((letter: string, index: number) =>
         <span key={index}>{letter.toUpperCase()}</span>
@@ -25,9 +29,25 @@ function App() {
         </div>
     )
 
-    const keyboardElements: JSX.Element[] = alphabet.split("").map((letter: string) =>
-        <button>{letter.toUpperCase()}</button>
+    const keyboardElements: JSX.Element[] = alphabet.split("").map((letter: string) => {
+            const className: string = clsx({
+                correct: currentWord.includes(letter) && guessedLetters.includes(letter),
+                wrong: !currentWord.includes(letter) && guessedLetters.includes(letter),
+            })
+            console.log(className)
+
+            return (
+                <button
+                    key={letter}
+                    onClick={() => addGuessedLetter(letter)}
+                    className={className}
+                >
+                    {letter.toUpperCase()}
+                </button>
+            )
+        }
     )
+
 
     return (
         <main>
