@@ -20,7 +20,7 @@ function App() {
     }
 
     const letterElements: JSX.Element[] = currentWord.split("").map((letter: string, index: number) =>
-        <span key={index}>{letter.toUpperCase()}</span>
+        <span key={index}>{guessedLetters.includes(letter) ? letter.toUpperCase() : ""}</span>
     )
 
     const languageElements: JSX.Element[] = languages.map((language: Language) =>
@@ -34,7 +34,6 @@ function App() {
                 correct: currentWord.includes(letter) && guessedLetters.includes(letter),
                 wrong: !currentWord.includes(letter) && guessedLetters.includes(letter),
             })
-            console.log(className)
 
             return (
                 <button
