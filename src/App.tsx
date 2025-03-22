@@ -8,12 +8,13 @@ import {clsx} from "clsx";
  * Goal: Add in the incorrect guesses mechanism to the game
  *
  * Challenge:
- * 1. Create a variable `isGameOver` which evaluates to `true`
- *    if the user has guessed incorrectly 8 times. Consider how
- *    we might make this more dynamic if we were ever to add or
- *    remove languages from the languages array.
- * 2. Conditionally render the New Game button only if the game
- *    is over.
+ * Conditionally render either the "won" or "lost" statuses
+ * from the design, both the text and the styles, based on the
+ * new derived variables.
+ *
+ * Note: We always want the surrounding `section` to be rendered,
+ * so only change the content inside that section. Otherwise the
+ * content on the page would jump around a bit too much.
  */
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
     // Derived values
     const wrongGuessCount = guessedLetters.filter(i => !currentWord.includes(i)).length
     const isGameWon = currentWord.split("").every(i => guessedLetters.includes(i))
-    const isGameOver = wrongGuessCount >= languages.length - 1
+    const isGameLost = wrongGuessCount >= languages.length - 1
+    const isGameOver = isGameWon || isGameLost
 
     // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -74,6 +76,32 @@ function App() {
         }
     )
 
+    const alertClass = clsx("alert", {
+        won: isGameWon,
+        lost: isGameLost
+    })
+
+    function renderAlert() {
+        if (!isGameOver) {
+            return undefined
+        }
+
+        if (isGameWon) {
+            return (
+                <>
+                    <h2>You win!</h2>
+                    <p>Well done! 🎉</p>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <h2>Game over!</h2>
+                    <p>You lose! Better start learning Assembly 😭</p>
+                </>
+            )
+        }
+    }
 
     return (
         <main>
@@ -81,9 +109,8 @@ function App() {
                 <h1>Assembly: Endgame</h1>
                 <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
             </header>
-            <section className="alert">
-                <h2>You win!</h2>
-                <p>Well done! 🎉</p>
+            <section className={alertClass}>
+                {renderAlert()}
             </section>
             <section className="chips">
                 {languageElements}

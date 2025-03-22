@@ -32,7 +32,6 @@ header > p {
 }
 
 .alert {
-  background-color: #10A95B;
   border-radius: 4px;
   color: #F9F4DA;
   width: 352px;
@@ -42,6 +41,14 @@ header > p {
   align-items: center;
   justify-content: center;
   margin: 0 auto 50px auto;
+}
+
+.alert.won {
+  background-color: #10A95B;
+}
+
+.alert.lost {
+  background-color: #BA2A2A;
 }
 
 .alert > h2 {
