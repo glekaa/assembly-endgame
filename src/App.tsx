@@ -4,6 +4,18 @@ import {languages} from "./languages.ts";
 import {JSX, useState} from "react";
 import {clsx} from "clsx";
 
+/**
+ * Goal: Add in the incorrect guesses mechanism to the game
+ *
+ * Challenge:
+ * 1. Create a variable `isGameOver` which evaluates to `true`
+ *    if the user has guessed incorrectly 8 times. Consider how
+ *    we might make this more dynamic if we were ever to add or
+ *    remove languages from the languages array.
+ * 2. Conditionally render the New Game button only if the game
+ *    is over.
+ */
+
 function App() {
     // State values
     const [currentWord, setCurrentWord] = useState("react")
@@ -11,6 +23,8 @@ function App() {
 
     // Derived values
     const wrongGuessCount = guessedLetters.filter(i => !currentWord.includes(i)).length
+    const isGameWon = currentWord.split("").every(i => guessedLetters.includes(i))
+    const isGameOver = wrongGuessCount >= languages.length - 1
 
     // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -29,14 +43,14 @@ function App() {
 
     const languageElements: JSX.Element[] = languages.map((language: Language, index: number) => {
 
-        const className = clsx("chip", index < wrongGuessCount && "lost")
+            const className = clsx("chip", index < wrongGuessCount && "lost")
 
-        return (
-        <span
-            style={{backgroundColor: language.backgroundColor, color: language.color}}
-            className={className}
-            key={language.name}
-        >
+            return (
+                <span
+                    style={{backgroundColor: language.backgroundColor, color: language.color}}
+                    className={className}
+                    key={language.name}
+                >
             {language.name}
         </span>)
         }
@@ -80,9 +94,11 @@ function App() {
             <section className="keyboard">
                 {keyboardElements}
             </section>
-            <button className="new-game">
-                New Game
-            </button>
+            {isGameOver &&
+                <button className="new-game">
+                    New Game
+                </button>
+            }
         </main>
     )
 }
