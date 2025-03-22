@@ -5,10 +5,14 @@ import {JSX, useState} from "react";
 import {clsx} from "clsx";
 
 function App() {
-
+    // State values
     const [currentWord, setCurrentWord] = useState("react")
     const [guessedLetters, setGuessedLetters] = useState<string[]>([])
 
+    // Derived values
+    const wrongGuessCount = guessedLetters.filter(i => !currentWord.includes(i)).length
+
+    // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function addGuessedLetter(letter: string) {
@@ -23,10 +27,19 @@ function App() {
         <span key={index}>{guessedLetters.includes(letter) ? letter.toUpperCase() : ""}</span>
     )
 
-    const languageElements: JSX.Element[] = languages.map((language: Language) =>
-        <div style={{backgroundColor: language.backgroundColor, color: language.color}} key={language.name}>
+    const languageElements: JSX.Element[] = languages.map((language: Language, index: number) => {
+
+        const className = clsx("chip", index < wrongGuessCount && "lost")
+
+        return (
+        <span
+            style={{backgroundColor: language.backgroundColor, color: language.color}}
+            className={className}
+            key={language.name}
+        >
             {language.name}
-        </div>
+        </span>)
+        }
     )
 
     const keyboardElements: JSX.Element[] = alphabet.split("").map((letter: string) => {
