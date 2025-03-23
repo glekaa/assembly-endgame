@@ -43,12 +43,20 @@ header > p {
   margin: 0 auto 50px auto;
 }
 
+.alert.farewell {
+  background-color: #7A5EA7;
+  border: #323232 1px dashed;
+  font-style: italic;
+}
+
 .alert.won {
   background-color: #10A95B;
+  border: none;
 }
 
 .alert.lost {
   background-color: #BA2A2A;
+  border: none;
 }
 
 .alert > h2 {

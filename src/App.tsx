@@ -3,18 +3,17 @@ import {Language} from "./types.ts";
 import {languages} from "./languages.ts";
 import {JSX, useState} from "react";
 import {clsx} from "clsx";
+import {getFarewellText} from "./utils.ts";
 
 /**
- * Goal: Add in the incorrect guesses mechanism to the game
+ * Challenge: Bid farewell to each programming language
+ * as it gets erased from existance 👋😭
  *
- * Challenge:
- * Conditionally render either the "won" or "lost" statuses
- * from the design, both the text and the styles, based on the
- * new derived variables.
+ * Use the `getFarewellText` function from the new utils.js
+ * file to generate the text.
  *
- * Note: We always want the surrounding `section` to be rendered,
- * so only change the content inside that section. Otherwise the
- * content on the page would jump around a bit too much.
+ * Check hint.md if you're feeling stuck, but do your best
+ * to solve the challenge without the hint! 🕵️
  */
 
 function App() {
@@ -23,6 +22,7 @@ function App() {
     const [guessedLetters, setGuessedLetters] = useState<string[]>([])
 
     // Derived values
+    const isLastOneWrong = !currentWord.includes(guessedLetters[guessedLetters.length - 1]) && guessedLetters.length > 0
     const wrongGuessCount = guessedLetters.filter(i => !currentWord.includes(i)).length
     const isGameWon = currentWord.split("").every(i => guessedLetters.includes(i))
     const isGameLost = wrongGuessCount >= languages.length - 1
@@ -78,12 +78,17 @@ function App() {
 
     const alertClass = clsx("alert", {
         won: isGameWon,
-        lost: isGameLost
+        lost: isGameLost,
+        farewell: isLastOneWrong
     })
 
     function renderAlert() {
         if (!isGameOver) {
-            return undefined
+            if (isLastOneWrong) {
+                return <h2>{getFarewellText(languages[wrongGuessCount - 1].name)}</h2>
+            } else {
+                return undefined
+            }
         }
 
         if (isGameWon) {
