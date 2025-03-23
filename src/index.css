@@ -142,6 +142,11 @@ span.chip.lost::before {
   cursor: pointer;
 }
 
+.keyboard > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .new-game {
   font-weight: 600;
   display: block;
