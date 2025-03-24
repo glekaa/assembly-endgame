@@ -29,8 +29,17 @@ function App() {
         )
     }
 
-    const letterElements: JSX.Element[] = currentWord.split("").map((letter: string, index: number) =>
-        <span key={index}>{guessedLetters.includes(letter) ? letter.toUpperCase() : ""}</span>
+    const letterElements: JSX.Element[] = currentWord.split("").map((letter: string, index: number) => {
+
+        const className = clsx({
+            wrong: isGameOver && !guessedLetters.includes(letter)
+        })
+
+        return (
+            <span key={index} className={className}>{guessedLetters.includes(letter) || isGameOver ? letter.toUpperCase() : ""}</span>
+        )
+    }
+
     )
 
     const languageElements: JSX.Element[] = languages.map((language: Language, index: number) => {

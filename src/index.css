@@ -125,6 +125,10 @@ span.chip.lost::before {
   border-bottom: #F9F4DA 1px solid;
 }
 
+.word-input > span.wrong {
+  background-color: #BA2A2A;
+}
+
 .keyboard {
   display: flex;
   flex-wrap: wrap;
