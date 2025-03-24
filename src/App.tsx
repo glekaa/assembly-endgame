@@ -3,22 +3,12 @@ import {Language} from "./types.ts";
 import {languages} from "./languages.ts";
 import {JSX, useState} from "react";
 import {clsx} from "clsx";
-import {getFarewellText} from "./utils.ts";
+import {getFarewellText, getRandomWord} from "./utils.ts";
 
-/**
- * Challenge: Bid farewell to each programming language
- * as it gets erased from existance 👋😭
- *
- * Use the `getFarewellText` function from the new utils.js
- * file to generate the text.
- *
- * Check hint.md if you're feeling stuck, but do your best
- * to solve the challenge without the hint! 🕵️
- */
 
 function App() {
     // State values
-    const [currentWord, setCurrentWord] = useState("react")
+    const [currentWord, setCurrentWord] = useState(() => getRandomWord())
     const [guessedLetters, setGuessedLetters] = useState<string[]>([])
 
     // Derived values
@@ -68,6 +58,8 @@ function App() {
                 <button
                     disabled={isGameOver}
                     key={letter}
+                    aria-disabled={guessedLetters.includes(letter)}
+                    aria-label={`Letter ${letter}`}
                     onClick={() => addGuessedLetter(letter)}
                     className={className}
                 >
@@ -115,7 +107,10 @@ function App() {
                 <h1>Assembly: Endgame</h1>
                 <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
             </header>
-            <section className={alertClass}>
+            <section aria-live="polite"
+                     className={alertClass}
+                     role="status"
+            >
                 {renderAlert()}
             </section>
             <section className="chips">
@@ -128,7 +123,8 @@ function App() {
                 {keyboardElements}
             </section>
             {isGameOver &&
-                <button className="new-game">
+                <button className="new-game"
+                >
                     New Game
                 </button>
             }

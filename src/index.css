@@ -52,11 +52,13 @@ header > p {
 .alert.won {
   background-color: #10A95B;
   border: none;
+  font-style: normal;
 }
 
 .alert.lost {
   background-color: #BA2A2A;
   border: none;
+  font-style: normal;
 }
 
 .alert > h2 {
