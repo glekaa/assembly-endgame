@@ -124,6 +124,12 @@ function App() {
             </section>
             {isGameOver &&
                 <button className="new-game"
+                        onClick={() => {
+                            {
+                                setCurrentWord(getRandomWord())
+                                setGuessedLetters([])
+                            }
+                        }}
                 >
                     New Game
                 </button>
