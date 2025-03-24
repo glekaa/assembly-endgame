@@ -4,6 +4,7 @@ import {languages} from "./languages.ts";
 import {JSX, useState} from "react";
 import {clsx} from "clsx";
 import {getFarewellText, getRandomWord} from "./utils.ts";
+import Confetti from 'react-confetti'
 
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
 
     return (
         <main>
+            {isGameWon && <Confetti recycle={false}/>}
             <header>
                 <h1>Assembly: Endgame</h1>
                 <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
